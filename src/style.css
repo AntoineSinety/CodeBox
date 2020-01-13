@@ -1,5 +1,5 @@
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 /*=============================================
 =            WRAPPER AOS - Animation         =
@@ -14,7 +14,7 @@ body {
   padding-top: 75px;
   background: #ccc;
   text-align: center;
-  color: #FFF;
+  color: #fff;
   font-size: 2em;
 }
 .wrapper-aos h2 {
@@ -32,7 +32,7 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: 'Hammersmith One', sans-serif;
+  font-family: "Hammersmith One", sans-serif;
 }
 /*=====  End of WRAPPER AOS - Animation  ======*/
 .block-code {
@@ -79,7 +79,7 @@ h5 {
 .menu-header .logo-wrapper span {
   display: inline-block;
   color: white;
-  font-family: 'Hammersmith One', sans-serif;
+  font-family: "Hammersmith One", sans-serif;
   font-weight: bold;
   margin-left: 0.5em;
 }
@@ -114,7 +114,7 @@ h5 {
   position: relative;
 }
 .content-element:before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -132,12 +132,6 @@ h5 {
 .content-element .install-demo p {
   margin-bottom: 0.8em;
 }
-.content-element .install-demo code {
-  background-color: #e0e0e0;
-  border-radius: 5px;
-  padding: 0.2em 0.5em;
-  line-height: 1.5em;
-}
 .content-element .install-demo a {
   color: firebrick;
   text-decoration: none;
@@ -145,9 +139,9 @@ h5 {
 .content-element .install-demo a:hover {
   text-decoration: underline;
 }
-.content-element h1 {
+.content-element h1.aos-animate {
   text-align: center;
-  color: white ;
+  color: white;
   padding: 0.45em;
   margin: 0;
   margin-bottom: 1em;
@@ -166,7 +160,7 @@ h5 {
   margin-top: 3em;
 }
 .wp-migrate .wrapper-form-sql-wp > div {
-  margin: 1em ;
+  margin: 1em;
   background-color: #3c374d;
   padding: 1em;
   border-radius: 50px;
@@ -195,7 +189,7 @@ h5 {
 }
 .wp-migrate #result {
   background-color: #e0e0e0;
-  padding: 1em 2em ;
+  padding: 1em 2em;
   border-radius: 5px;
   margin-top: 3em;
 }
@@ -274,4 +268,8 @@ h5 {
   top: 18px;
   width: 0%;
   left: 50%;
+}
+.content-element .content-article {
+  margin-top: 6em;
+  margin-left: 1.5em;
 }
