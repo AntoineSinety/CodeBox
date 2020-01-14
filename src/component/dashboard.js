@@ -35,6 +35,9 @@ class Dashboard extends Component {
             this.setState({ showComponent: defaultPage });
         }
 
+        
+
+
         this.setState({ loading: true });
 
         let articlesStocked = [];
@@ -59,11 +62,18 @@ class Dashboard extends Component {
 
                     // this.setState({ articleLst: articlesStocked });
                     self.setState({articleLst: articlesStocked});
-                });                
+                }); 
+                
+                var selectedArt = self.state.articleLst.find(x => x.id === defaultPage);
+                self.setState({
+                    artSelect: selectedArt
+                });
             })
             .catch(function(error) {
                 console.log("Error getting document:", error);
             });
+
+            
     }
 
     _onButtonClick(param) {
@@ -72,11 +82,9 @@ class Dashboard extends Component {
         });
 
         var selectedArt = this.state.articleLst.find(x => x.id === param);
-        console.log(selectedArt);
         this.setState({
             artSelect: selectedArt
         });
-        console.log(this.state.artSelect);
 
         localStorage.setItem("defaultPage", param);
     }

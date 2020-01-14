@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import ReactMarkdown from "react-markdown";
+import CodeBlock from "../markdown/codeblock";
+
 
 import firebase from "../firebase";
 
@@ -11,33 +14,15 @@ class ContentArticle extends Component {
         };
     }
 
-    // componentDidMount() {
-    //     this.setState({ loading: true });
+    
 
-    //     // Get article
-    //     var self = this;
-    //     const db = firebase.firestore();
-    //     db.collection("articles")
-    //         .doc(self.props.artSele)
-    //         .get()
-    //         .then(function(doc) {
-    //             if (doc.exists) {
-    //                 console.log("Document data:", doc.data());
-    //                 self.setState({ contentArticle: doc.data().urlArticle });
-    //             } else {
-    //                 // doc.data() will be undefined in this case
-    //                 console.log("No such document!");
-    //             }
-    //         })
-    //         .catch(function(error) {
-    //             console.log("Error getting document:", error);
-    //         });
-    // }
+    componentDidMount() {
+    }
 
     render() {
         return <div className="content-article">
-            {this.state.contentArticle}
-            {this.props.selectedArticle}
+            {/* {this.props.selectedArticle} */}
+            <ReactMarkdown source={this.props.selectedArticle} renderers={{ code: CodeBlock }} />
         </div>;
     }
 }
