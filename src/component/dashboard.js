@@ -7,10 +7,8 @@ import logo from "../assets/logo-code.svg";
 
 import AosAnim from "./aos-animation.js";
 import WordpressMigrate from "./wordpress-migrate.js";
-import HtmlItem from "./element-html";
 import MenuBurger from "./menu-burger";
 import BlankWpTheme from "./blank-wp-theme";
-import Ressources from "./ressources";
 import Demo from "./editor-md";
 import firebase from "../firebase";
 import ContentArticle from "./content-article";
@@ -141,19 +139,6 @@ class Dashboard extends Component {
                         </li>
                         <li
                             className={
-                                this.state.showComponent === "htmlitem"
-                                    ? "active"
-                                    : undefined
-                            }
-                        >
-                            <span
-                                onClick={() => this._onButtonClick("htmlitem")}
-                            >
-                                HTML - Les tags utiles & à styler
-                            </span>
-                        </li>
-                        <li
-                            className={
                                 this.state.showComponent === "menuburger"
                                     ? "active"
                                     : undefined
@@ -184,21 +169,6 @@ class Dashboard extends Component {
                         </li>
                         <li
                             className={
-                                this.state.showComponent === "ressources"
-                                    ? "active"
-                                    : undefined
-                            }
-                        >
-                            <span
-                                onClick={() =>
-                                    this._onButtonClick("ressources")
-                                }
-                            >
-                                Ressources Intégration
-                            </span>
-                        </li>
-                        <li
-                            className={
                                 this.state.showComponent === "editormd"
                                     ? "active"
                                     : undefined
@@ -218,27 +188,19 @@ class Dashboard extends Component {
                     {(this.state.showComponent !== "editormd" && 
                       this.state.showComponent !== "aos" && 
                       this.state.showComponent !== "sqlWp" && 
-                      this.state.showComponent !== "htmlitem" && 
                       this.state.showComponent !== "menuburger" && 
-                      this.state.showComponent !== "blanktheme" && 
-                      this.state.showComponent !== "ressources")
-                    ? <ContentArticle selectedArticle={this.state.artSelect.content} /> : null}
+                      this.state.showComponent !== "blanktheme")
+                    ? <ContentArticle selectedArticle={this.state.artSelect} /> : null}
              
                     {this.state.showComponent === "aos" ? <AosAnim /> : null}
                     {this.state.showComponent === "sqlWp" ? (
                         <WordpressMigrate />
-                    ) : null}
-                    {this.state.showComponent === "htmlitem" ? (
-                        <HtmlItem />
                     ) : null}
                     {this.state.showComponent === "menuburger" ? (
                         <MenuBurger />
                     ) : null}
                     {this.state.showComponent === "blanktheme" ? (
                         <BlankWpTheme />
-                    ) : null}
-                    {this.state.showComponent === "ressources" ? (
-                        <Ressources />
                     ) : null}
                 </div>
             </div>
