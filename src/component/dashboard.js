@@ -10,8 +10,11 @@ import WordpressMigrate from "./wordpress-migrate.js";
 import MenuBurger from "./menu-burger";
 import BlankWpTheme from "./blank-wp-theme";
 import Demo from "./editor-md";
-import firebase from "../firebase";
 import ContentArticle from "./content-article";
+
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { washApple, eatApple, rotApple, getListArticle } from "../redux/actions";
 
 AOS.init();
 
@@ -21,57 +24,32 @@ class Dashboard extends Component {
         this.state = {
             showComponent: "sqlWp",
             loading: false,
-            articleLst: [],
-            artSelect: ''
+            artSelect: ""
         };
         this._onButtonClick = this._onButtonClick.bind(this);
     }
 
     componentDidMount() {
+        try {
+            this.props.getListArticle(); 
+        }catch (e){
+            console.log('Fonction getListArticle pb', e);
+        }
+        this.props.rotApple();
         var defaultPage = localStorage.getItem("defaultPage");
-        if (defaultPage !== null) {
+        if (defaultPage !== null && defaultPage !== "editormd" && defaultPage !== "aos" && defaultPage !== "sqlWp" && defaultPage !== "menuburger" && defaultPage !== "blanktheme") {
             this.setState({ showComponent: defaultPage });
         }
 
-        
-
-
         this.setState({ loading: true });
 
-        let articlesStocked = [];
         var self = this;
 
-        
-        // Get all Markdown
-        const db = firebase.firestore();
-        db.collection("articles")
-            .get()
-            .then(function(querySnapshot){
-                // const data = querySnapshot.docs.map(doc => doc.id);
-                // console.log(data);
-                // this.setState({ articleLst: data });
 
-                querySnapshot.forEach(function(doc) {
-                    articlesStocked.push({
-                        id: doc.id,
-                        content: doc.data().urlArticle
-                    });
-                    // console.log(articlesStocked);
-
-                    // this.setState({ articleLst: articlesStocked });
-                    self.setState({articleLst: articlesStocked});
-                }); 
-                
-                var selectedArt = self.state.articleLst.find(x => x.id === defaultPage);
-                self.setState({
-                    artSelect: selectedArt
-                });
-            })
-            .catch(function(error) {
-                console.log("Error getting document:", error);
-            });
-
-            
+        var selectedArt = self.props.articleLst.find(x => x.id === defaultPage);
+        self.setState({
+            artSelect: selectedArt
+        });
     }
 
     _onButtonClick(param) {
@@ -79,12 +57,13 @@ class Dashboard extends Component {
             showComponent: param
         });
 
-        var selectedArt = this.state.articleLst.find(x => x.id === param);
+        var selectedArt = this.props.articleLst.find(x => x.id === param);
         this.setState({
             artSelect: selectedArt
         });
-
+        if (param == null || param == "editormd" || param == "aos" || param == "sqlWp" || param == "menuburger" || param == "blanktheme") {
         localStorage.setItem("defaultPage", param);
+        }
     }
     render() {
         return (
@@ -95,12 +74,13 @@ class Dashboard extends Component {
                         <span>CodeBox</span>
                     </div>
                     <ul>
-                        {this.state.articleLst.map(function(oneArticle, index) {
+                        {this.props.articleLst.map(function(oneArticle, index) {
                             return (
                                 <li
                                     key={index}
                                     className={
-                                        this.state.showComponent === oneArticle.id
+                                        this.state.showComponent ===
+                                        oneArticle.id
                                             ? "active"
                                             : undefined
                                     }
@@ -183,15 +163,18 @@ class Dashboard extends Component {
                     </ul>
                 </div>
                 <div className="content-element">
-                    {this.state.showComponent  === "editormd"  ? <Demo /> : null}
-                   
-                    {(this.state.showComponent !== "editormd" && 
-                      this.state.showComponent !== "aos" && 
-                      this.state.showComponent !== "sqlWp" && 
-                      this.state.showComponent !== "menuburger" && 
-                      this.state.showComponent !== "blanktheme")
-                    ? <ContentArticle selectedArticle={this.state.artSelect} /> : null}
-             
+                    {this.state.showComponent === "editormd" ? <Demo /> : null}
+
+                    {this.state.showComponent !== "editormd" &&
+                    this.state.showComponent !== "aos" &&
+                    this.state.showComponent !== "sqlWp" &&
+                    this.state.showComponent !== "menuburger" &&
+                    this.state.showComponent !== "blanktheme" ? (
+                        <ContentArticle
+                            selectedArticle={this.state.artSelect}
+                        />
+                    ) : null}
+
                     {this.state.showComponent === "aos" ? <AosAnim /> : null}
                     {this.state.showComponent === "sqlWp" ? (
                         <WordpressMigrate />
@@ -202,9 +185,30 @@ class Dashboard extends Component {
                     {this.state.showComponent === "blanktheme" ? (
                         <BlankWpTheme />
                     ) : null}
+                    <div>{this.props.color}</div>
                 </div>
             </div>
         );
     }
 }
-export default Dashboard; // Don’t forget to use export default!
+
+const mapStateToProps = state => ({
+    dirty: state.dirty,
+    remainingBites: state.remainingBites,
+    color: state.color,
+    articleLst: state.articleLst
+
+});
+
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(
+        {
+            washApple,
+            eatApple,
+            rotApple,
+            getListArticle
+        },
+        dispatch
+    );
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard); // Connects `Dashboard` to the Redux store

@@ -3,7 +3,6 @@ import ReactMarkdown from "react-markdown";
 import CodeBlock from "../markdown/codeblock";
 
 
-import firebase from "../firebase";
 
 class ContentArticle extends Component {
     constructor(props) {
@@ -21,7 +20,6 @@ class ContentArticle extends Component {
 
     render() {
         return <div className="content-article">
-            {/* {this.props.selectedArticle} */}
             <h1 data-aos="slide-right">{this.props.selectedArticle.id}</h1>
             <div className="install-demo markdown-css">
             <ReactMarkdown source={this.props.selectedArticle.content} renderers={{ code: CodeBlock }} />
