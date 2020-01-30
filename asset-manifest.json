@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/CodeBox/static/css/main.f30807ed.chunk.css",
-    "main.js": "/CodeBox/static/js/main.c7f05b24.chunk.js",
-    "main.js.map": "/CodeBox/static/js/main.c7f05b24.chunk.js.map",
+    "main.js": "/CodeBox/static/js/main.ee692b42.chunk.js",
+    "main.js.map": "/CodeBox/static/js/main.ee692b42.chunk.js.map",
     "runtime-main.js": "/CodeBox/static/js/runtime-main.929047aa.js",
     "runtime-main.js.map": "/CodeBox/static/js/runtime-main.929047aa.js.map",
     "static/css/2.06565635.chunk.css": "/CodeBox/static/css/2.06565635.chunk.css",
-    "static/js/2.4136d815.chunk.js": "/CodeBox/static/js/2.4136d815.chunk.js",
-    "static/js/2.4136d815.chunk.js.map": "/CodeBox/static/js/2.4136d815.chunk.js.map",
+    "static/js/2.1de5b66d.chunk.js": "/CodeBox/static/js/2.1de5b66d.chunk.js",
+    "static/js/2.1de5b66d.chunk.js.map": "/CodeBox/static/js/2.1de5b66d.chunk.js.map",
     "index.html": "/CodeBox/index.html",
-    "precache-manifest.cf2c927e06315d58684a22dc6a0b5eff.js": "/CodeBox/precache-manifest.cf2c927e06315d58684a22dc6a0b5eff.js",
+    "precache-manifest.a70a1b9a6f35acd5aaccafca24679042.js": "/CodeBox/precache-manifest.a70a1b9a6f35acd5aaccafca24679042.js",
     "service-worker.js": "/CodeBox/service-worker.js",
     "static/css/2.06565635.chunk.css.map": "/CodeBox/static/css/2.06565635.chunk.css.map",
     "static/css/main.f30807ed.chunk.css.map": "/CodeBox/static/css/main.f30807ed.chunk.css.map",
@@ -18,8 +18,8 @@
   "entrypoints": [
     "static/js/runtime-main.929047aa.js",
     "static/css/2.06565635.chunk.css",
-    "static/js/2.4136d815.chunk.js",
+    "static/js/2.1de5b66d.chunk.js",
     "static/css/main.f30807ed.chunk.css",
-    "static/js/main.c7f05b24.chunk.js"
+    "static/js/main.ee692b42.chunk.js"
   ]
 }
