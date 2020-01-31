@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9ae0d92a5f4ac83c25ed68ce13d806b1",
+    "revision": "76995c498ae1960eca9650fb8941707b",
     "url": "/CodeBox/index.html"
   },
   {
@@ -8,16 +8,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/CodeBox/static/css/2.06565635.chunk.css"
   },
   {
-    "revision": "f37a7003cbeca8116624",
-    "url": "/CodeBox/static/css/main.f30807ed.chunk.css"
+    "revision": "995592f11edcf8a00bb7",
+    "url": "/CodeBox/static/css/main.77fae72f.chunk.css"
   },
   {
     "revision": "b4cb7e0acf7965439f35",
     "url": "/CodeBox/static/js/2.1de5b66d.chunk.js"
   },
   {
-    "revision": "f37a7003cbeca8116624",
-    "url": "/CodeBox/static/js/main.ee692b42.chunk.js"
+    "revision": "995592f11edcf8a00bb7",
+    "url": "/CodeBox/static/js/main.81e6a26f.chunk.js"
   },
   {
     "revision": "77fa82a185436dc60944",
