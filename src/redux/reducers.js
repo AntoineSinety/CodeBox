@@ -26,26 +26,26 @@ export default (state = initialAppleState, action) => {
                 ...state,
                 color: "brown"
             };
-        case "LISTING_ARTICLES":
-            const db = firebase.firestore();
-            let articlesStocked = [];
-            db.collection("articles")
-                .get()
-                .then(function(querySnapshot) {
-                    querySnapshot.forEach(function(doc) {
-                        articlesStocked.push({
-                            id: doc.id,
-                            content: doc.data().urlArticle
-                        });
-                    });
-                })
-                .catch(function(error) {
-                    console.log("Error getting document:", error);
-                });
-            return {
-                ...state,
-                articleLst: articlesStocked,
-            };
+        // case "LISTING_ARTICLES":
+        //     const db = firebase.firestore();
+        //     let articlesStocked = [];
+        //     db.collection("articles")
+        //         .get()
+        //         .then(function(querySnapshot) {
+        //             querySnapshot.forEach(function(doc) {
+        //                 articlesStocked.push({
+        //                     id: doc.id,
+        //                     content: doc.data().urlArticle
+        //                 });
+        //             });
+        //         })
+        //         .catch(function(error) {
+        //             console.log("Error getting document:", error);
+        //         });
+        //     return {
+        //         ...state,
+        //         articleLst: articlesStocked,
+        //     };
         default:
             return state;
     }

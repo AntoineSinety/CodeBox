@@ -4,23 +4,28 @@ class BlankWpTheme extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            menuOpen: false
+            menuOpen: false,
+            loading: false,
+            mesArticles: []
         };
 
 
     }
-
+    componentDidMount() {
+        // setTimeout(() => {   
+        //     this.setState({
+        //         mesArticles: this.props.mesArticles,
+        //         loading: true
+        //     })
+        //     console.log('tempooo', this.props.mesArticles[0].id);
+        // }, 5000);
+    }
 
   render() {
     return (
         <div className="wrapper-menu-burger">
             <h1 data-aos="slide-right">Wordpress Blank Thème</h1>
 
-            <div className="demo">
-
-                
-
-            </div>
 
             <div className="install-demo">
 

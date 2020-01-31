@@ -112,6 +112,8 @@ h5 {
   margin-left: 250px;
   box-sizing: border-box;
   position: relative;
+  border: none;
+  outline: none;
 }
 .content-element:before {
   content: "";

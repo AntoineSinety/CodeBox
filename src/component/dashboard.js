@@ -11,10 +11,16 @@ import MenuBurger from "./menu-burger";
 import BlankWpTheme from "./blank-wp-theme";
 import Demo from "./editor-md";
 import ContentArticle from "./content-article";
+import firebase from "../firebase";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { washApple, eatApple, rotApple, getListArticle } from "../redux/actions";
+import {
+    washApple,
+    eatApple,
+    rotApple
+    // getListArticle
+} from "../redux/actions";
 
 AOS.init();
 
@@ -22,48 +28,90 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showComponent: "sqlWp",
+            showComponent: 'sqlWp',
             loading: false,
-            artSelect: ""
+            artSelect: "",
+            articleLst: []
         };
         this._onButtonClick = this._onButtonClick.bind(this);
     }
 
     componentDidMount() {
-        try {
-            this.props.getListArticle(); 
-        }catch (e){
-            console.log('Fonction getListArticle pb', e);
-        }
-        this.props.rotApple();
-        var defaultPage = localStorage.getItem("defaultPage");
-        if (defaultPage !== null && defaultPage !== "editormd" && defaultPage !== "aos" && defaultPage !== "sqlWp" && defaultPage !== "menuburger" && defaultPage !== "blanktheme") {
-            this.setState({ showComponent: defaultPage });
-        }
 
+        // Chargement ...
         this.setState({ loading: true });
 
         var self = this;
+        // Firebase get Articles
+        const db = firebase.firestore();
+        let articlesStocked = [];
+        db.collection("articles")
+            .get()
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    articlesStocked.push({
+                        id: doc.id,
+                        content: doc.data().urlArticle
+                    });
+                });
+                // setState d'un array Article + fin chargement
+                self.setState({ articleLst: articlesStocked });
+                
+                var selectedArt = self.state.articleLst.find(
+                    x => x.id === defaultPage
+                );
+                self.setState({
+                    artSelect: selectedArt
+                });
+                self.setState({ loading: false });
+            })
+            .catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+        // this.props.getListArticle();
 
+        var defaultPage = localStorage.getItem("defaultPage");
+        console.log('defpa', defaultPage);
+        if (
+            defaultPage !== null && (
+            defaultPage === "editormd" ||
+            defaultPage === "aos" ||
+            defaultPage === "sqlWp" ||
+            defaultPage === "menuburger" ||
+            defaultPage === "blanktheme")
+        ) {
+            this.setState({ showComponent: defaultPage });
+        }
 
-        var selectedArt = self.props.articleLst.find(x => x.id === defaultPage);
+        // this.setState({ loading: true });
+
+        var selectedArt = self.state.articleLst.find(x => x.id === defaultPage);
         self.setState({
             artSelect: selectedArt
         });
     }
 
     _onButtonClick(param) {
-        this.setState({
-            showComponent: param
-        });
+        
 
-        var selectedArt = this.props.articleLst.find(x => x.id === param);
+        var selectedArt = this.state.articleLst.find(x => x.id === param);
         this.setState({
             artSelect: selectedArt
         });
-        if (param == null || param == "editormd" || param == "aos" || param == "sqlWp" || param == "menuburger" || param == "blanktheme") {
-        localStorage.setItem("defaultPage", param);
+        if (
+            param === null ||
+            param === "editormd" ||
+            param === "aos" ||
+            param === "sqlWp" ||
+            param === "menuburger" ||
+            param === "blanktheme"
+        ) {
+            localStorage.setItem("defaultPage", param);
         }
+
+        this.setState({
+            showComponent: param
+        });
     }
     render() {
         return (
@@ -74,27 +122,35 @@ class Dashboard extends Component {
                         <span>CodeBox</span>
                     </div>
                     <ul>
-                        {this.props.articleLst.map(function(oneArticle, index) {
-                            return (
-                                <li
-                                    key={index}
-                                    className={
-                                        this.state.showComponent ===
-                                        oneArticle.id
-                                            ? "active"
-                                            : undefined
-                                    }
-                                >
-                                    <span
-                                        onClick={() =>
-                                            this._onButtonClick(oneArticle.id)
-                                        }
-                                    >
-                                        {oneArticle.id}
-                                    </span>
-                                </li>
-                            );
-                        }, this)}
+                        {this.state.loading
+                            ? ""
+                            : this.state.articleLst.map(function(
+                                  oneArticle,
+                                  index
+                              ) {
+                                  return (
+                                      <li
+                                          key={index}
+                                          className={
+                                              this.state.showComponent ===
+                                              oneArticle.id
+                                                  ? "active"
+                                                  : undefined
+                                          }
+                                      >
+                                          <span
+                                              onClick={() =>
+                                                  this._onButtonClick(
+                                                      oneArticle.id
+                                                  )
+                                              }
+                                          >
+                                              {oneArticle.id}
+                                          </span>
+                                      </li>
+                                  );
+                              },
+                              this)}
                         <li
                             className={
                                 this.state.showComponent === "aos"
@@ -182,8 +238,9 @@ class Dashboard extends Component {
                     {this.state.showComponent === "menuburger" ? (
                         <MenuBurger />
                     ) : null}
-                    {this.state.showComponent === "blanktheme" ? (
-                        <BlankWpTheme />
+                    {this.state.showComponent === "blanktheme" &&
+                    this.state.loading === false ? (
+                        <BlankWpTheme mesArticles={this.state.articleLst} />
                     ) : null}
                     <div>{this.props.color}</div>
                 </div>
@@ -195,9 +252,8 @@ class Dashboard extends Component {
 const mapStateToProps = state => ({
     dirty: state.dirty,
     remainingBites: state.remainingBites,
-    color: state.color,
-    articleLst: state.articleLst
-
+    color: state.color
+    // articleLst: state.articleLst
 });
 
 const mapDispatchToProps = dispatch =>
@@ -205,8 +261,8 @@ const mapDispatchToProps = dispatch =>
         {
             washApple,
             eatApple,
-            rotApple,
-            getListArticle
+            rotApple
+            // getListArticle
         },
         dispatch
     );
