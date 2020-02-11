@@ -242,7 +242,6 @@ class Dashboard extends Component {
                     this.state.loading === false ? (
                         <BlankWpTheme mesArticles={this.state.articleLst} />
                     ) : null}
-                    <div>{this.props.color}</div>
                 </div>
             </div>
         );

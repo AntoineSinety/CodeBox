@@ -271,3 +271,47 @@ h5 {
   width: 0%;
   left: 50%;
 }
+.editor-article {
+  margin-top: 100px;
+}
+.editor-article > label {
+  padding: 2em;
+}
+.editor-article > label input {
+  margin-left: 15px;
+  height: 20px;
+}
+.editor-article .rc-md-editor {
+  margin: 2em 2em;
+}
+.editor-article .save-art {
+  margin-left: 2em;
+  display: inline-block;
+  padding: 0.8em 1.5em;
+  border-radius: 2em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  color: #ffffff;
+  background-color: #4095c6;
+  text-align: center;
+  transition: all 0.2s;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.editor-article .save-art:hover {
+  background-color: #34769c;
+}
+@media all and (max-width: 30em) {
+  .editor-article .save-art {
+    display: block;
+    margin: 0.2em auto;
+  }
+}

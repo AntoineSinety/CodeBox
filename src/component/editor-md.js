@@ -52,11 +52,7 @@ export default class Demo extends React.Component {
 
     render() {
         return (
-            <div>
-                <br />
-                <br />
-                <br />
-                <br />
+            <div className="editor-article">
                 <label>
                     Titre de l'article :
                     <input
@@ -75,6 +71,7 @@ export default class Demo extends React.Component {
                 <button
                     onClick={e => this.saveArticle(e)}
                     disabled={!this.state.titleArticle}
+                    className="save-art"
                 >
                     Sauvegarder l'article
                 </button>
